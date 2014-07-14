@@ -1,0 +1,76 @@
+<%def name="listpager(page,pagecount,urlbeta='', titlename=u'页面存档', pagename='page')">
+
+                <div class="pagebar">
+                  ${titlename}：&nbsp;
+                  %if page == 1:
+                    <span class="inactive">首页</span> 
+                    <span class="inactive">上页</span> 
+                  %else:
+                  <a href="${urlwrite(urlbeta)}/" title="第 1 页">首页</a>
+                    %if page == 2:
+                    <a href="${urlwrite(urlbeta)}/" title="第 1 页">上页</a>
+                    %else:
+                    <a href="${urlwrite(urlbeta)}/${pagename}/${page-1}/" title="第 ${page-1} 页">上页</a>
+                    %endif
+                  %endif
+
+
+##显示页面分页
+%if page<7:
+  %for i in range(1, page):
+    %if page == i:
+      <span class="this-page">${i}</span>
+    %elif i == 1:
+       <a href="${urlwrite(urlbeta)}/" title="第 1 页">1</a>
+    %else:
+      <a href="${urlwrite(urlbeta)}/${pagename}/${i}/" title="第 ${i} 页">${i}</a>
+    %endif
+  %endfor
+%else:
+  <span class="break">...</span>
+  %for i in range(page - 5, page):
+    %if page == i:
+    <span class="this-page">${i}</span>
+    %elif i == 1:
+       <a href="${urlwrite(urlbeta)}/" title="第 1 页">1</a>
+    %else:
+    <a href="${urlwrite(urlbeta)}/${pagename}/${i}/" title="第 ${i} 页">${i}</a>
+    %endif
+  %endfor
+%endif
+
+%if page<pagecount-5:
+  %for i in range(page,page + 6):
+    %if page == i:
+      <span class="this-page">${i}</span>
+    %elif i == 1:
+       <a href="${urlwrite(urlbeta)}/" title="第 1 页">1</a>
+    %else:
+      <a href="${urlwrite(urlbeta)}/${pagename}/${i}/" title="第 ${i} 页">${i}</a>
+    %endif
+  %endfor
+  <span class="break">...</span>
+%else:
+  %for i in range(page, pagecount + 1):
+    %if page == i:
+      <span class="this-page">${i}</span>
+    %elif i == 1:
+       <a href="${urlwrite(urlbeta)}/" title="第 1 页">1</a>
+    %else:
+    <a href="${urlwrite(urlbeta)}/${pagename}/${i}/" title="第 ${i} 页">${i}</a>
+    %endif
+  %endfor
+%endif
+
+                 %if page == pagecount:
+                    <span class="inactive">下页</span> 
+                    <span class="inactive">尾页</span> 
+                  %else:
+                    <a href="${urlwrite(urlbeta)}/${pagename}/${page+1}/" title="第 ${page+1} 页">下页</a>
+                    <a href="${urlwrite(urlbeta)}/${pagename}/${pagecount}/" title="第 ${pagecount} 页">尾页</a>
+                  %endif
+                </div>
+</%def>
+<%def name="urlwrite(urlbeta='')">
+${urlbeta}
+</%def>

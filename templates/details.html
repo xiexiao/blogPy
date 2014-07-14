@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><%namespace file="functions.html" import="*"/><%include file="top.html" />
+<body><%include file="header.html" />
+      <div id="main">
+        <div id="mainBox">
+            <div id="content">
+                <div class="entry">
+                  <div class="post" id="post-${item.id}">
+                        <h2>
+                          <a href="/${item.beta}/" rel="bookmark"
+                            title="Permanent Link: ${item.title}">${item.title}</a></h2>
+                         <div class="time" title="${item.pubdate.strftime('%Y-%m-%dT%H:%M:%S+0000')}">
+                                ${localtime(item.pubdate).strftime("%Y-%m-%d")} | ${localtime(item.pubdate).strftime("%H:%M")}
+                                 | 分类：<a href="/category/${item.itemcat.beta}/"
+                                  title="查看 ${item.itemcat.name} 的全部文章" rel="category tag">${item.itemcat.name}</a>
+                                </div>
+                        <div class="content">
+                            <p>${item.content}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="entry">
+                    <div class="boxcomments">
+
+%if commentlist:
+	<ol class="commentlist"> 
+ 
+          <li class="commenthead"><h2 id="comments">${commentcount}条评论 关于 &#8220;${item.title}&#8221;</h2></li> 
+
+%for index,comment in enumerate(commentlist):
+  %if index%2:
+          <li class="odd" id="comment-${comment.id}"> 
+  %else:
+          <li class="mycomment" id="comment-${comment.id}"> 
+  %endif
+<p class="commentTitle">由 <strong>${comment.username | h}</strong> 发表于<a href="#comment-${comment.id}" title="${localtime(comment.adddate).strftime("%Y-%m-%d")}">${localtime(comment.adddate).strftime("%Y-%m-%d")}</a> </p> 
+        <div class="commentContent"> 
+<table cellpadding="0" cellspacing="5" style="width: 100%"> 
+	<tr> 
+          <td style="width: 72px; text-align: center;" valign="top"><img alt="${comment.username | h}" src="/static/user.png" class="avatar photo" height="48" width="48" /></td> 
+          <td><p>${myhtml(comment.content)}</p> 
+</td> 
+	</tr> 
+</table> 
+        </div> 
+      	</li> 
+%endfor
+<li class="commentend">${listpager(page,pagecount,'',u'评论分页',item.beta)}</li> 
+		
+		
+	</ol>
+%endif
+
+
+                        <form action="" method="post" id="commentform">
+                        <h3 id="respond">
+                            发表您的评论</h3>
+                        <p>
+                            您的名字：
+                            <input type="text" name="author" id="author" value="" size="22" tabindex="1" />
+                            （必填）</p>
+                        <p>
+                            您的邮箱：
+                            <input type="text" name="email" id="email" value="" tabindex="2" size="22" />
+                            （不会被公布，必填）</p>
+                        <p>
+                            您的网站：
+                            <input type="text" name="url" id="url" value="" size="22" tabindex="3" /></p>
+                        <p>
+                            <textarea name="comment" id="comment" cols="45" rows="10" tabindex="4"></textarea></p>
+                        <p>
+                            <input name="submit" type="submit" id="submit" tabindex="5" value="发表评论" />
+                            <input type="hidden" name="comment_item_id" value="${item.id}" /></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <%include file="sidebar.html" />
+        </div>
+        <%include file="footer.html" />
+    </div>
+  </body>
+</html>

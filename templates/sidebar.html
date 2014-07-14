@@ -1,0 +1,63 @@
+<div id="sidebar">
+<div class="rsidebar">
+<ul>
+
+<li><h2>订阅</h2>
+<ul>
+	<li>
+	<a title="RSS" href="/rss/">
+	<img style="border: 0pt none ;" alt="RSS" src="/static/rss.gif"/> 订阅本站</a>
+	</li>
+</ul>
+</li>
+
+<li class="categories"><h2>日志分类</h2><ul>	
+%if catlist:
+  %for catitem in catlist:
+    %if not catitem.ishide:
+<li class="cat-item cat-item-${catitem.id}"><a href="/category/${catitem.beta}/" title="查看 ${catitem.name} 下的所有文章">${catitem.name}</a> 
+</li>
+    %endif
+  %endfor
+%endif
+</ul></li>
+
+<li><h2>最新日志</h2>
+<ul>
+%if newitemlist:
+%for item in newitemlist:
+<li class="article"><a href="/${item.beta}/">${item.title}</a></li>
+%endfor
+%endif
+</ul>
+</li>
+
+<li><h2>最新评论</h2><ul>
+%if newcommentlist:
+%for comment in newcommentlist:
+<li>${comment.username}：<a href="/${comment.item.beta}/#comment-${comment.id}" title="日志：${comment.item.title}">${comment.item.title}</a></li>
+%endfor
+%endif
+</ul></li>
+
+<%doc>
+<li><h2>网站登录</h2>
+<ul>
+    <li><a href="/admin/">登录</a></li>
+</ul>
+</li>
+</%doc>
+
+<li><h2>技术驱动</h2>
+<ul>
+  <li><a href="http://www.python.org/" target="_blank"><img src="/static/python_powered.png" alt="powered by Python" /></a></li>
+  <li><a href="http://www.webpy.org/" target="_blank"><img src="/static/webpy_ss.png" alt="powered by web.py" /></a></li>
+  <li><a href="http://www.makotemplates.org/" target="_blank"><img src="/static/Mako.png" alt="powered by Mako" /></a></li>
+  <li><a href="http://www.sqlalchemy.org/" target="_blank"><img src="/static/SQLAlchemy.png" alt="powered by SQLAlchemy" /></a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+		
+</div>

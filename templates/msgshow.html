@@ -1,0 +1,10 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><%namespace file="functions.html" import="*"/><%include file="top.html" />
+  %if returnurl:
+<script language="javascript" type="text/javascript">
+  setTimeout("javascript:location.href='${returnurl}'", 2000); 
+</script>
+  %endif
+  <body><div>${msg}</div>
+  </body>
+</html>

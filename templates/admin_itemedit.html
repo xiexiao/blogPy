@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><%namespace file="functions.html" import="*"/><%include file="admin_top.html" />
+  <body><div>
+<%include file="admin_header.html" />
+
+<script src="/static/nicEdit.js" type="text/javascript"></script>
+<script type="text/javascript">
+bkLib.onDomLoaded(function() {
+	new nicEditor({fullPanel:true}).panelInstance('mcontent');
+//	new nicEditor({buttonList : ['fontSize','bold','italic','underline','strikeThrough','subscript','superscript','html','image']}).panelInstance('area4');
+});
+</script>
+
+ <form action="" method="post" id="editform" style="margin:0;padding:0;">
+
+%if myitem and myitem.id != 0:
+ <table>
+ <tr>
+ <td colspan=4>修改</td>
+ </tr>
+ <tr>
+ <td>Title：</td>
+ <td colspan=3><input type="text" name="mtitle"  value="${myitem.title | h}" size="50" tabindex="1" /></td>
+ </tr>
+ <tr>
+ <td>beta：</td>
+ <td><input type="text" name="mbeta" value="${myitem.beta}" size="35" tabindex="1" /></td>
+ <td>category:${myitem.itemcat_id}</td>
+ <td>
+<select name="mcategory" id="mcategory">
+%if catlist:
+  %for cat in catlist:
+  <option value="${cat.id}"
+    %if int(myitem.itemcat_id)==int(cat.id):
+      selected="selected" 
+    %endif
+  >${cat.name}</option>
+  %endfor
+%endif
+</select>
+ </td>
+ </tr>
+
+
+ <tr>
+ <td>adddate：</td>
+ <td><input type="text" name="madddate" value="${localtime(myitem.adddate).strftime("%Y-%m-%d %H:%M:%S")}" size="22" /></td>
+
+ <td>pubdate：</td>
+ <td><input type="text" name="mpubdate" value="${localtime(myitem.pubdate).strftime("%Y-%m-%d %H:%M:%S")}" size="22" /></td>
+ </tr>
+
+ <tr>
+ <td>ispass：</td>
+ <td colspan=3>
+   <input id="ispass1" type="radio" name="mispass" value="true"
+    %if myitem.ispass:
+          checked="checked"
+    %endif 
+    /><label for="ispass1">是</label>
+    
+    
+    <input id="ispass2" type="radio" name="mispass" value="false" 
+          %if not myitem.ispass:
+          checked="checked"
+          %endif 
+          /><label for="ispass2">否</label>
+  </td></tr>
+
+ <tr>
+ <td>content：</td>
+ <td colspan=3><textarea name="mcontent" id="mcontent" cols="90" rows="25" tabindex="4">${myitem.content | h}</textarea></td></tr>
+
+ <tr>
+ <td></td>
+ <td colspan=3><input name="submit" type="submit" id="submit" tabindex="5" value="保存修改" />
+ <input type="hidden" name="myid" value="${myitem.id}" /></td></tr>
+
+ </table>
+
+
+
+%else:
+
+
+
+ <table>
+ <tr>
+ <td colspan=4>添加</td>
+ </tr>
+ <tr>
+ <td>Title：</td>
+ <td colspan=3><input type="text" name="mtitle"  value="${myitem.title}" size="50" tabindex="1" /></td>
+ </tr>
+ <tr>
+ <td>beta：</td>
+ <td><input type="text" name="mbeta" value="${myitem.beta}" size="35" tabindex="1" /></td>
+ <td>category:${myitem.itemcat_id}</td>
+ <td>
+<select name="mcategory" id="mcategory">
+%if catlist:
+  %for cat in catlist:
+  <option value="${cat.id}">${cat.name}</option>
+  %endfor
+%endif
+</select>
+ </td>
+ </tr>
+
+
+ <tr>
+ <td>adddate：</td>
+ <td><input type="text" name="madddate" value="${localtime(myitem.adddate).strftime("%Y-%m-%d %H:%M:%S")}" size="22" /></td>
+
+ <td>pubdate：</td>
+ <td><input type="text" name="mpubdate" value="${localtime(myitem.pubdate).strftime("%Y-%m-%d %H:%M:%S")}" size="22" /></td>
+ </tr>
+
+ <tr>
+ <td>ispass：</td>
+ <td colspan=3>
+   <input id="ispass1" type="radio" name="mispass" value="true"
+    %if myitem.ispass:
+          checked="checked"
+    %endif 
+    /><label for="ispass1">是</label>
+    
+    
+    <input id="ispass2" type="radio" name="mispass" value="false" 
+          %if not myitem.ispass:
+          checked="checked"
+          %endif 
+          /><label for="ispass2">否</label>
+  </td></tr>
+
+ <tr>
+ <td>content：</td>
+ <td colspan=3><textarea name="mcontent" id="mcontent" cols="90" rows="25" tabindex="4">${myitem.content | h}</textarea></td></tr>
+
+ <tr>
+ <td></td>
+ <td colspan=3><input name="submit" type="submit" id="submit" tabindex="5" value="保存" />
+ <input type="hidden" name="myid" value="${myitem.id}" /></td></tr>
+
+ </table>
+%endif
+</form>
+    </div>
+  </body>
+</html>

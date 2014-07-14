@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><%namespace file="functions.html" import="*"/><%include file="admin_top.html" />
+  <body><div>
+<%include file="admin_header.html" />
+
+<h3>评论审核:</h3>
+
+%if commentlist:
+  %for c in commentlist:
+  ${myhtml(c.username)}|${localtime(c.adddate).strftime("%Y-%m-%d")} ${localtime(c.adddate).strftime("%H:%M")}:
+  ${myhtml(c.content[:30])} on [${c.item.title} <a href="/${c.item.beta}/" target="_blank">view</a>] 
+  %if c.ispass:
+  <a href="/admin/commentpass/${c.id}/" style="color:green">now is show</a><br />
+  %else:
+  <a href="/admin/commentpass/${c.id}/" style="color:red">now is not show</a><br />
+  %endif
+  %endfor
+%endif
+<br />
+${listpager(page, pagecount,'/admin', u'分页', 'commentlist')} 
+<br />
+<br />
+
+    </div>
+  </body>
+</html>

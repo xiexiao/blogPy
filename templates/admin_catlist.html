@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><%namespace file="functions.html" import="*"/><%include file="admin_top.html" />
+  <body><div>
+<%include file="admin_header.html" />
+<h3>文章分类:</h3>
+
+%if catlist:
+  %for cat in catlist:
+  <a href="/admin/catlist/${cat.id}/">${cat.name}</a> [url:${cat.beta}, order:${cat.orders}] <br />
+  %endfor
+%endif
+
+<br />
+<br />
+
+%if myitem and myitem.id != 0:
+
+ <form action="" method="post" id="editform">
+                        <h3 id="respond">
+                            修改</h3>
+                        <p>
+                            名称：<br />
+                            <input type="text" name="mname" id="mname" value="${myitem.name}" size="22" tabindex="1" />
+                            </p>
+                        <p>
+                            beta：<br />
+                            <input type="text" name="mbeta" id="mbeta" value="${myitem.beta}" tabindex="2" size="22" />
+                            </p>
+                        <p>
+                        orders：<br />
+                            <input type="text" name="morders" id="morders" value="${myitem.orders}" size="22" tabindex="3" /></p>
+                        <p>
+                        keyword:<br />
+                        <textarea name="mkeyword" id="mkeyword" cols="45" rows="10" tabindex="4">${myitem.keyword}</textarea></p>
+                        <p>
+                        description:<br />
+                        <textarea name="mdescription" id="mdescription" cols="45" rows="10" tabindex="4">${myitem.description}</textarea></p>
+      <p>
+ishide：
+   <input id="ishide1" type="radio" name="mishide" value="true"
+    %if myitem.ishide:
+          checked="checked"
+    %endif 
+    /><label for="ishide1">是</label>
+    
+    
+    <input id="ishide2" type="radio" name="mishide" value="false" 
+          %if not myitem.ishide:
+          checked="checked"
+          %endif 
+          /><label for="ishide2">否</label>
+          </p>
+
+                        <p>
+                            <input name="submit" type="submit" id="submit" tabindex="5" value="保存修改" />
+                            <input type="hidden" name="myid" value="${myitem.id}" /></p>
+                            <p><a href="javascript:if(confirm('确实要删除吗?'))location='/admin/catlist/delete/${myitem.id}/'">删除该分类</a></p>
+                        </form>
+
+%else:
+ <form action="" method="post" id="editform">
+                        <h3 id="respond">添加</h3>
+                        <p>
+                            名称：<br />
+                            <input type="text" name="mname" id="mname" value="" size="22" tabindex="1" />
+                            </p>
+                        <p>
+                            beta：<br />
+                            <input type="text" name="mbeta" id="mbeta" value="" tabindex="2" size="22" />
+                            </p>
+                        <p>
+                        orders：<br />
+                            <input type="text" name="morders" id="morders" value="0" size="22" tabindex="3" /></p>
+                        <p>
+                        keyword:<br />
+                        <textarea name="mkeyword" id="mkeyword" cols="45" rows="10" tabindex="4"></textarea></p>
+                        <p>
+                        description:<br />
+                        <textarea name="mdescription" id="mdescription" cols="45" rows="10" tabindex="4"></textarea></p>
+      <p>
+ishide：
+   <input id="ishide1" type="radio" name="mishide" value="true"/><label for="ishide1">是</label>
+    <input id="ishide2" type="radio" name="mishide" value="false" 
+          checked="checked" /><label for="ishide2">否</label>
+          </p>
+
+                        <p>
+                            <input name="submit" type="submit" id="submit" tabindex="5" value="添加" />
+                            <input type="hidden" name="myid" value="0" /></p>
+                        </form>
+
+
+%endif
+
+    </div>
+  </body>
+</html>

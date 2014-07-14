@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%namespace file="functions.html" import="*"/><html xmlns="http://www.w3.org/1999/xhtml">
+<%include file="top.html" /><body><%include file="header.html" />
+    <div id="main">
+        <div id="mainBox">
+            <div id="content">
+              % if itemlist:
+              <h2 class="pagetitle">日志分类：${itemCat.name}</h2>
+                % for item in itemlist: 
+                <div class="entry">
+                    <div id="post-${item.id}">
+                        <h2 class="title">
+                           <a href="/${item.beta}/" rel="bookmark" title="链接到${item.title}">${item.title}</a></h2>
+                              <div class="time" title="${item.pubdate.strftime('%Y-%m-%dT%H:%M:%S+0000')}">
+                                ${localtime(item.pubdate).strftime("%Y-%m-%d")} | ${localtime(item.pubdate).strftime("%H:%M")}
+                                 | 分类：<a href="/category/${item.itemcat.beta}/"
+                                  title="查看 ${item.itemcat.name} 的全部文章" rel="category tag">${item.itemcat.name}</a>
+                                </div>
+                        <div class="content">
+                            <p>
+                                ${item.content}</p>
+                        </div>
+                    </div>
+                </div>
+                % endfor
+              % endif
+${ listpager(page,pagecount,'/category/'+itemCat.beta) }
+
+            </div>
+            <%include file="sidebar.html" />
+        </div>
+        <%include file="footer.html" />
+    </div>
+</body>
+</html>

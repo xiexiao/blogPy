@@ -1,0 +1,4 @@
+Mako==1.0.0
+MarkupSafe==0.23
+SQLAlchemy==0.9.6
+web.py==0.37

@@ -1,0 +1,21 @@
+<div id="header"><%namespace file="functions.html" import="*"/>
+<div id="headerBox">
+  <h1 class="blogName"><a href="${urlwrite('/')}">${site_name}</a></h1>
+  <p class="blogSubhead">${site_subname}</p>
+</div>
+</div>
+<div id="menuBox">
+<div id="menu">
+<ul class="menu">
+<li class="current_page_item"><a title="Home" class="active" href="${urlwrite('/')}">日志</a></li>
+<%doc>
+<li class="page_item page-item-58"><a href="${site_url}about/" title="关于">关于</a></li>
+</%doc></ul><%doc>
+<div id="search">
+  <form method="get" id="searchform" action="${site_url}">
+<div><input class="searchInput" type="text" value="" name="s" id="s" />
+<input class="searchBtn" type="submit" value="" id="searchsubmit" /></div>
+</form>
+</div></%doc>
+</div>
+</div>
